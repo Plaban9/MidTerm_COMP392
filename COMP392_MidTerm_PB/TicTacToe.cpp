@@ -312,7 +312,7 @@ namespace Game
 
 				move_counter++;
 
-				if (move_counter == 9 && !over_flag)
+				if (move_counter == MAX_MOVES && !over_flag)
 				{
 					//check for match draw condition
 					over_flag = true;

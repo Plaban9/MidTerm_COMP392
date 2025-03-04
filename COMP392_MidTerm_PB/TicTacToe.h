@@ -7,6 +7,7 @@ namespace Game
 	private:
 		static const int MAX_ROWS = 3;
 		static const int MAX_COLS = 3;
+		static const int MAX_MOVES = MAX_ROWS * MAX_COLS;
 
 		char** _board;
 		void initializeBoard();
