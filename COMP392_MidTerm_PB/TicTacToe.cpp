@@ -47,7 +47,7 @@ namespace Game
 
 	void TicTacToe::printBoard()
 	{
-		//system("cls");
+		system("cls");
 
 		cout << "\n**********************";
 		cout << "\n***TIC-TAC-TOE GAME***";
@@ -124,9 +124,8 @@ namespace Game
 
 	bool TicTacToe::rowCheck(char symbol)
 	{
-		string symbolCollectionOnBoard = "";
-
 		string symbolToCheck = "";
+		string symbolCollectionOnBoard = "";
 
 		for (int j = 0; j < MAX_COLS; j++)
 		{
@@ -142,8 +141,6 @@ namespace Game
 				symbolCollectionOnBoard += _board[i][j];
 			}
 
-			std::cout << "Test:" << symbolToCheck << " " << symbolCollectionOnBoard;
-
 			if (symbolCollectionOnBoard == symbolToCheck)
 			{
 				return true;
@@ -155,9 +152,24 @@ namespace Game
 
 	bool TicTacToe::columnCheck(char symbol)
 	{
+		string symbolToCheck = "";
+		string symbolCollectionOnBoard = "";
+
+		for (int j = 0; j < MAX_ROWS; j++)
+		{
+			symbolToCheck += symbol;
+		}
+
 		for (int i = 0; i < MAX_COLS; i++)
 		{
-			if ((_board[0][i] == symbol) && (_board[1][i] == symbol) && (_board[2][i] == symbol))
+			symbolCollectionOnBoard = "";
+
+			for (int j = 0; j < MAX_ROWS; j++)
+			{
+				symbolCollectionOnBoard += _board[j][i];
+			}
+
+			if (symbolCollectionOnBoard == symbolToCheck)
 			{
 				return true;
 			}
@@ -168,27 +180,51 @@ namespace Game
 
 	bool TicTacToe::diagonalCheck(char symbol)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < MAX_ROWS; i++)
+		{
 			if (leftDiagonalCheck(symbol) || rightDiagonalCheck(symbol))
+			{
 				return true;
+			}
+		}
 
 		return false;
 	}//End_of_diagonal_check
 
 	bool TicTacToe::leftDiagonalCheck(char symbol)
 	{
-		if ((_board[0][0] == symbol) && (_board[1][1] == symbol) && (_board[2][2] == symbol))
-			return true;
+		string symbolToCheck = "";
+		string symbolCollectionOnBoard = "";
 
-		return false;
+		for (int j = 0; j < MAX_ROWS; j++)
+		{
+			symbolToCheck += symbol;
+		}
+
+		for (int i = 0; i < MAX_ROWS; i++)
+		{
+			symbolCollectionOnBoard += _board[i][i];
+		}
+
+		return symbolCollectionOnBoard == symbolToCheck;
 	}//End_of_left_diagonal_check
 
 	bool TicTacToe::rightDiagonalCheck(char symbol)
 	{
-		if ((_board[0][2] == symbol) && (_board[1][1] == symbol) && (_board[2][0] == symbol))
-			return true;
+		string symbolToCheck = "";
+		string symbolCollectionOnBoard = "";
 
-		return false;
+		for (int j = 0; j < MAX_ROWS; j++)
+		{
+			symbolToCheck += symbol;
+		}
+
+		for (int i = 0; i < MAX_ROWS; i++)
+		{
+			symbolCollectionOnBoard += _board[i][MAX_COLS - i - 1];
+		}
+
+		return symbolCollectionOnBoard == symbolToCheck;
 	}//End_of_right_diagonal_check
 
 	void TicTacToe::playGame()
