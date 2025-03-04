@@ -5,7 +5,11 @@ namespace Game
 	class TicTacToe
 	{
 	private:
-		char _board[3][3];
+		static const int MAX_ROWS = 3;
+		static const int MAX_COLS = 3;
+
+		char** _board;
+		void initializeBoard();
 		void clearBoard();
 		void printBoard();
 		void validateCoordinate(int row, int column, char symbol);

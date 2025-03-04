@@ -133,6 +133,7 @@ namespace Game
 			symbolToCheck += symbol;
 		}
 
+
 		for (int i = 0; i < MAX_ROWS; i++)
 		{
 			symbolCollectionOnBoard = "";

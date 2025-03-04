@@ -4,8 +4,6 @@
 
 int main()
 {
-	std::cout << "Plaban Test...";
-
 	Game::TicTacToe game;
 
 	game.playGame();
