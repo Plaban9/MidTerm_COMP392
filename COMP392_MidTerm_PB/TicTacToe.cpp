@@ -180,15 +180,7 @@ namespace Game
 
 	bool TicTacToe::diagonalCheck(char symbol)
 	{
-		for (int i = 0; i < MAX_ROWS; i++)
-		{
-			if (leftDiagonalCheck(symbol) || rightDiagonalCheck(symbol))
-			{
-				return true;
-			}
-		}
-
-		return false;
+		return leftDiagonalCheck(symbol) || rightDiagonalCheck(symbol) ;
 	}//End_of_diagonal_check
 
 	bool TicTacToe::leftDiagonalCheck(char symbol)
