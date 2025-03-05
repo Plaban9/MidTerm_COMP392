@@ -12,5 +12,4 @@ int main()
 	system("PAUSE>null");
 
 	return 0;
-	return 0;
 }

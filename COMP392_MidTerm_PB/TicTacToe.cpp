@@ -62,25 +62,33 @@ namespace Game
 		cout << "\n***TIC-TAC-TOE GAME***";
 		cout << "\n**********************\n\n";
 
+		for (int j = 0; j < MAX_SIZE; ++j)
+		{
+			cout << ((j == 0) ? "      " : "   ") << j + 1 << "    ";
+		}
+
+		cout << "\n\n";
+
 		for (int i = 0; i < MAX_SIZE; ++i)
 		{
+
 			for (int j = 0; j < MAX_SIZE; ++j)
 			{
-				cout << ((j == 0) ? "    " : "   ") << " " << ((j != MAX_SIZE - 1) ? "   |" : "");
+				cout << ((j == 0) ? "      " : "   ") << " " << ((j != MAX_SIZE - 1) ? "   |" : "");
 			}
 
 			cout << "\n";
 
 			for (int j = 0; j < MAX_SIZE; ++j)
 			{
-				cout << ((j == 0) ? "    " : "   ") << _board[i][j] << ((j != MAX_SIZE - 1) ? "   |" : "");
+				cout << ((j == 0) ? (" " + std::to_string(i + 1) + "    ") : "   ") << _board[i][j] << ((j != MAX_SIZE - 1) ? "   |" : "");
 			}
 
 			cout << "\n";
 
 			for (int j = 0; j < MAX_SIZE; ++j)
 			{
-				cout << ((j == 0) ? "    " : "   ") << " " << ((j != MAX_SIZE - 1) ? "   |" : "");
+				cout << ((j == 0) ? "      " : "   ") << " " << ((j != MAX_SIZE - 1) ? "   |" : "");
 			}
 
 			cout << "\n";
@@ -91,14 +99,14 @@ namespace Game
 				{
 					for (int j = 0; j < MAX_SIZE; ++j)
 					{
-						cout << ((j == 0) ? " -------" : ((j % 2 == 0 && WEAVE_BOARD_DISPLAY) ? "--------" : "|-------"));
+						cout << ((j == 0) ? "   -------" : ((j % 2 == 0 && WEAVE_BOARD_DISPLAY) ? "--------" : "|-------"));
 					}
 				}
 				else
 				{
 					for (int j = 0; j < MAX_SIZE; ++j)
 					{
-						cout << ((j == 0) ? " -------" : ((j % 2 == 1 && WEAVE_BOARD_DISPLAY) ? "--------" : "|-------"));
+						cout << ((j == 0) ? "   -------" : ((j % 2 == 1 && WEAVE_BOARD_DISPLAY) ? "--------" : "|-------"));
 					}
 				}
 			}
