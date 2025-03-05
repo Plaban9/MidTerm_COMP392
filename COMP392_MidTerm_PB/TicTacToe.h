@@ -5,9 +5,9 @@ namespace Game
 	class TicTacToe
 	{
 	private:
-		static const int MAX_ROWS = 3;
-		static const int MAX_COLS = 3;
-		static const int MAX_MOVES = MAX_ROWS * MAX_COLS;
+		static bool WEAVE_BOARD_DISPLAY;
+		static int MAX_SIZE;
+		static int MAX_MOVES;
 
 		char** _board;
 		void initializeBoard();
@@ -22,7 +22,7 @@ namespace Game
 		bool rightDiagonalCheck(char symbol);
 
 	public:
-		TicTacToe();
+		TicTacToe(int maxSize = 3, bool isWeaveDisplay = true);
 
 		void playGame();
 

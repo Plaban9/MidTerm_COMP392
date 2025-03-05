@@ -4,7 +4,7 @@
 
 int main()
 {
-	Game::TicTacToe game;
+	Game::TicTacToe game(3, false);
 
 	game.playGame();
 

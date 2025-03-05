@@ -9,8 +9,16 @@ using std::string;
 
 namespace Game
 {
-	TicTacToe::TicTacToe()
+	bool TicTacToe::WEAVE_BOARD_DISPLAY = true;
+	int TicTacToe::MAX_SIZE = 3;
+	int TicTacToe::MAX_MOVES = MAX_SIZE * MAX_SIZE;		
+
+	TicTacToe::TicTacToe(int maxSize, bool isWeaveDisplay)
 	{
+		MAX_SIZE = maxSize;
+		MAX_MOVES = MAX_SIZE * MAX_SIZE;
+		WEAVE_BOARD_DISPLAY = isWeaveDisplay;
+
 		initializeBoard();
 		clearBoard();
 		printBoard();
@@ -18,7 +26,7 @@ namespace Game
 
 	TicTacToe::~TicTacToe()
 	{
-		for (int i = 0; i < MAX_ROWS; ++i)
+		for (int i = 0; i < MAX_SIZE; ++i)
 		{
 			delete[] _board[i];
 		}
@@ -27,18 +35,19 @@ namespace Game
 
 	void TicTacToe::initializeBoard()
 	{
-		_board = new char* [MAX_ROWS];
-		for (int i = 0; i < MAX_ROWS; ++i)
+		_board = new char* [MAX_SIZE];
+
+		for (int i = 0; i < MAX_SIZE; ++i)
 		{
-			_board[i] = new char[MAX_COLS];
+			_board[i] = new char[MAX_SIZE];
 		}
 	}
 
 	void TicTacToe::clearBoard()
 	{
-		for (int i = 0; i < MAX_ROWS; ++i)
+		for (int i = 0; i < MAX_SIZE; ++i)
 		{
-			for (int j = 0; j < MAX_COLS; ++j)
+			for (int j = 0; j < MAX_SIZE; ++j)
 			{
 				_board[i][j] = ' ';
 			}
@@ -51,18 +60,51 @@ namespace Game
 
 		cout << "\n**********************";
 		cout << "\n***TIC-TAC-TOE GAME***";
-		cout << "\n**********************\n";
-		cout << "\n        |       |    \n";
-		cout << "     " << _board[0][0] << "  |   " << _board[0][1] << "   |  " << _board[0][2] << "\n";
-		cout << "        |       |    \n";
-		cout << "  ---------------------\n";
-		cout << "        |       |    \n";
-		cout << "     " << _board[1][0] << "  |   " << _board[1][1] << "   |  " << _board[1][2] << "\n";
-		cout << "        |       |    \n";
-		cout << "  ---------------------\n";
-		cout << "        |       |    \n";
-		cout << "     " << _board[2][0] << "  |   " << _board[2][1] << "   |  " << _board[2][2] << "\n";
-		cout << "        |       |    \n";
+		cout << "\n**********************\n\n";
+
+		for (int i = 0; i < MAX_SIZE; ++i)
+		{
+			for (int j = 0; j < MAX_SIZE; ++j)
+			{
+				cout << ((j == 0) ? "    " : "   ") << " " << ((j != MAX_SIZE - 1) ? "   |" : "");
+			}
+
+			cout << "\n";
+
+			for (int j = 0; j < MAX_SIZE; ++j)
+			{
+				cout << ((j == 0) ? "    " : "   ") << _board[i][j] << ((j != MAX_SIZE - 1) ? "   |" : "");
+			}
+
+			cout << "\n";
+
+			for (int j = 0; j < MAX_SIZE; ++j)
+			{
+				cout << ((j == 0) ? "    " : "   ") << " " << ((j != MAX_SIZE - 1) ? "   |" : "");
+			}
+
+			cout << "\n";
+
+			if (i != MAX_SIZE - 1)
+			{
+				if (i % 2 == 0)
+				{
+					for (int j = 0; j < MAX_SIZE; ++j)
+					{
+						cout << ((j == 0) ? " -------" : ((j % 2 == 0 && WEAVE_BOARD_DISPLAY) ? "--------" : "|-------"));
+					}
+				}
+				else
+				{
+					for (int j = 0; j < MAX_SIZE; ++j)
+					{
+						cout << ((j == 0) ? " -------" : ((j % 2 == 1 && WEAVE_BOARD_DISPLAY) ? "--------" : "|-------"));
+					}
+				}
+			}
+
+			cout << "\n";
+		}
 	}
 
 	void TicTacToe::validateCoordinate(int row, int column, char symbol)
@@ -71,7 +113,7 @@ namespace Game
 
 		do
 		{
-			if ((row > MAX_ROWS || row < 1) || (column > MAX_COLS || column < 1))
+			if ((row > MAX_SIZE || row < 1) || (column > MAX_SIZE || column < 1))
 			{
 				flag = 0;
 
@@ -127,16 +169,16 @@ namespace Game
 		string symbolToCheck = "";
 		string symbolCollectionOnBoard = "";
 
-		for (int j = 0; j < MAX_COLS; j++)
+		for (int j = 0; j < MAX_SIZE; j++)
 		{
 			symbolToCheck += symbol;
 		}
 
-		for (int i = 0; i < MAX_ROWS; i++)
+		for (int i = 0; i < MAX_SIZE; i++)
 		{
 			symbolCollectionOnBoard = "";
 
-			for (int j = 0; j < MAX_COLS; j++)
+			for (int j = 0; j < MAX_SIZE; j++)
 			{
 				symbolCollectionOnBoard += _board[i][j];
 			}
@@ -155,16 +197,16 @@ namespace Game
 		string symbolToCheck = "";
 		string symbolCollectionOnBoard = "";
 
-		for (int j = 0; j < MAX_ROWS; j++)
+		for (int j = 0; j < MAX_SIZE; j++)
 		{
 			symbolToCheck += symbol;
 		}
 
-		for (int i = 0; i < MAX_COLS; i++)
+		for (int i = 0; i < MAX_SIZE; i++)
 		{
 			symbolCollectionOnBoard = "";
 
-			for (int j = 0; j < MAX_ROWS; j++)
+			for (int j = 0; j < MAX_SIZE; j++)
 			{
 				symbolCollectionOnBoard += _board[j][i];
 			}
@@ -180,7 +222,7 @@ namespace Game
 
 	bool TicTacToe::diagonalCheck(char symbol)
 	{
-		return leftDiagonalCheck(symbol) || rightDiagonalCheck(symbol) ;
+		return leftDiagonalCheck(symbol) || rightDiagonalCheck(symbol);
 	}//End_of_diagonal_check
 
 	bool TicTacToe::leftDiagonalCheck(char symbol)
@@ -188,12 +230,12 @@ namespace Game
 		string symbolToCheck = "";
 		string symbolCollectionOnBoard = "";
 
-		for (int j = 0; j < MAX_ROWS; j++)
+		for (int j = 0; j < MAX_SIZE; j++)
 		{
 			symbolToCheck += symbol;
 		}
 
-		for (int i = 0; i < MAX_ROWS; i++)
+		for (int i = 0; i < MAX_SIZE; i++)
 		{
 			symbolCollectionOnBoard += _board[i][i];
 		}
@@ -206,14 +248,14 @@ namespace Game
 		string symbolToCheck = "";
 		string symbolCollectionOnBoard = "";
 
-		for (int j = 0; j < MAX_ROWS; j++)
+		for (int j = 0; j < MAX_SIZE; j++)
 		{
 			symbolToCheck += symbol;
 		}
 
-		for (int i = 0; i < MAX_ROWS; i++)
+		for (int i = 0; i < MAX_SIZE; i++)
 		{
-			symbolCollectionOnBoard += _board[i][MAX_COLS - i - 1];
+			symbolCollectionOnBoard += _board[i][MAX_SIZE - i - 1];
 		}
 
 		return symbolCollectionOnBoard == symbolToCheck;
